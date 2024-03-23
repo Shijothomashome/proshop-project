@@ -153,10 +153,10 @@ state.cartItems.push( action.payload) --> Directly mutating, which might work in
 <!-- BACKEND AUTHENTICATION -->
 Created userController.js and userRoutes.js and
 wrote all the routes associated with users init, then checked all user routes using postman API.
-Now started with login authentication route, Setup the express parsers in the server.js file
+Now started with login (auth) authentication route, Setup the express parsers in the server.js file
  then restructured the email and password from req.body and then it will check for the user in the database using the email given, for checking with the password we will write a matchPassword function inside the userSchema with bcrypt and will call it on this controller. And in a if condition we will check that if there is a user && if the passwords matches or not.if it not satisfies it will take to the else block which will throw a new error.
 
-# JSON Web Tokens
+# Generate JSON Web Tokens
 In the backend install jwt "npm i jsonwebtoken"
 and then create a folder called utils, inside the utils folder create a file called generateTokens and write the code as a function which generates jwt and stores it into the httpOnly cookie. And then call the function inside the if block mentioned above by passing the response and userId
 
@@ -166,4 +166,47 @@ So from the backend install "npm i cookie-parser"
 Import the cookie parser in the server.js file
 "import cookieParser from 'cookie-parser';" and provide it as middleware in server.js below bodyparser middleware of express
 Now create a file called authMiddleware.js inside the middleware folder of backend.
-We will create 2 middleware functions one is auth middleware and other is admin middleware. After writing the code import those on to the userRoutes and use it as needed.
+We will create 2 middleware functions one is protect middleware and other is admin middleware. After writing the code import those on to the userRoutes and use it as needed.
+eg: "router.route('/profile').get(protect, getUserProfile).put(protect, updateUserProfile);"
+the protect middleware will check if there is token in the req.cookies.jwt and if exists then it will verify with the secret and will fetch the user from the database and store it to req.user
+You can check all these using postman API
+Go to userRoutes and see which of the routes choosen different middlewares!
+finally check the workflow using postman
+
+Now we need to setup the LOGOUT route which is essentially destroying the JWT from the httpOnly cookie. So look at the code of destroying the token.
+
+Now we need to setup the REGISTER route 
+In the register setup we will hash the password but we will not put the code for hashing in the route itself, instead we will write the code as a pre-save hook inside the userModel. So pre save will perform operations before the operation that we plan to do inside the controller. Likewise there is post save hook which will work after the database operation like create, save that we write inside the controller.
+Also we need to generate the jwt token if the user registration is successfull. So that user does not have to login again after the registration
+
+Now we need to setup getUserProfile and updateUserProfile
+check that!
+
+
+
+<!--FRONTEND AUTHENTICATION  -->
+productsApiSlice and cartSlice are the childs of apiSlice, so it does not need to be imported on to store.js  Now create authSlice.js with setCredentials and clearCredentials and import it on to store.js
+Create usersApiSlice.js. write the "login" mutation  we will pass the form data while submitting the form as POST req through this mutation
+Created a FormContainer component and then LoginScreen and now add the login route in the index.js file entry point of frontend
+Basically from the login screen we want to do two main things we want to do is, first, call the login using useLoginMutation.
+Because that will actually send the request to the backend and set the cookie.
+Now, once we get the user data back, we then want to call from the auth slice set credentials.(user gets put in local storage)
+So let's go into the login screen and we're also going to use a package called React Testify that will show a message if like we get the wrong email address or something like that.
+from frontend "npm i react-toastify"
+import ToastContainer  and css file in the App.js file shown below
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+and then use the ToastContainer element after footer or somewhere else, it doesnt matter. and to use it from Login screen import toast
+import {toast} from 'react-toastify';
+also imported lots of stuff in there check it!
+
+in the cart page checkout button we wrote the checkoutHandler function like this
+const checkoutHandler = () => {
+        navigate('/login?redirect=/shipping');
+    }
+    so from the login page we should check if the redirect is there or not 
+    so for that in the login screen import useLocation hook from react-router-dom. check the code for that, we will used useEffect hook also for this purpose.
+    Dont forget to add redirect setup at the new customer link of form
+    setup the header page with userInfo if signed in.
+    Now setup the logout mutation and setup the header with logout functionality
+    Now setup the register mutation and setup the register screen
