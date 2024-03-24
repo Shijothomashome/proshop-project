@@ -210,3 +210,26 @@ const checkoutHandler = () => {
     setup the header page with userInfo if signed in.
     Now setup the logout mutation and setup the header with logout functionality
     Now setup the register mutation and setup the register screen
+
+<!-- Checkout proccess part 1 -->
+In the cart slice add shippingAddress and paymentMethod to initial state as empty object and PayPal.
+Now create saveShippingAddress reducer function 
+Now create ShippingScreen
+The shipping route should be protected means it should be allowed only if there is a user loggedIn.
+So for that Let's create PRIVATE ROUTE COMPONENT SETUP
+create PrivateRoute.jsx
+Learn about "replace" attribute which is a property of the <Navigate> component in React Router.
+After settingup the PrivateRoute.jsx using Outlet and Navigate import it on the index.js page. and wrap the private routes inside this PrivateRoute component
+Now create CheckoutSteps.jsx and import it on pages like shipping and upcoming pages like payment and pass required props
+
+Now lets setup payment method
+In the cart slice add savePaymentMethod reducer
+create PaymentScreen and import it on index.js and create route for it.
+If user goes into the payment page without paymentAddress then user should be redirected into shipping. so check the code of it
+
+<!-- BACKEND to setup orders -->
+create orderRoutes and orderController files and setup the routes and controllers and import orderRoutes on the server file and add the app.use('/api/orders, orderRoutes). Now check if all the routes working or not using postman 
+Now all the routes are working,so start implementing all order routes. So we setup the codes of these routes addOrderItems, getMyOrders, getOrderById. Now lets consume them in the front end
+
+<!-- FRONTEND -->
+created ordersApiSlice.js and then created PlaceOrderScreen and imported it on index.js file for protected route '/placeorder
