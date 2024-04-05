@@ -23,7 +23,6 @@ import { addToCart } from "../slices/cartSlice.js";
 import { toast } from "react-toastify";
 import Meta from "../components/Meta";
 
-
 const ProductScreen = () => {
   const { id: productId } = useParams(); // renaming to productId
 
@@ -54,13 +53,14 @@ const ProductScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await createReview({  // POST
+      const response = await createReview({
+        // POST
         productId,
         rating,
         comment,
       }).unwrap();
       refetch();
-     
+
       toast.success(response?.message);
       setRating("");
       setComment("");
@@ -82,7 +82,7 @@ const ProductScreen = () => {
         </Message>
       ) : (
         <>
-        <Meta title={product.name} />
+          <Meta title={product.name} />
           <Row>
             <Col md={5}>
               <Image src={product.image} alt={product.name} fluid />
@@ -120,6 +120,7 @@ const ProductScreen = () => {
                       <Col>
                         {" "}
                         <strong>
+                          {console.log(product.countInStock)}
                           {product.countInStock > 0
                             ? "In Stock"
                             : "Out Of Stock"}
@@ -128,7 +129,7 @@ const ProductScreen = () => {
                     </Row>
                   </ListGroup.Item>
 
-                  {product.countInStock && (
+                  {product.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
                         <Col>Qty</Col>

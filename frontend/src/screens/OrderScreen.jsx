@@ -82,12 +82,12 @@ const OrderScreen = () => {
     });
   }
 
-  // for testing the payment and will set it to paid. So that we are not using actions.order.capture() and we are setting details to an object with payer as empty object
-  async function onApproveTest() {
-    await payOrder({ orderId, details: { payer: {} } });
-    refetch(); // for getting current status of payment after paying the amount into the page
-    toast.success("Payment successful");
-  }
+   // for testing the payment and will set it to paid. So that we are not using actions.order.capture() and we are setting details to an object with payer as empty object
+  // async function onApproveTest() {
+  //   await payOrder({ orderId, details: { payer: {} } });
+  //   refetch(); // for getting current status of payment after paying the amount into the page
+  //   toast.success("Payment successful");
+  // }
 
   function onError(err) {
     toast.error(err.message);
@@ -232,12 +232,12 @@ const OrderScreen = () => {
                     <Loader />
                   ) : (
                     <div>
-                      <Button
+                      {/* <Button
                         onClick={onApproveTest} // will set payment to paid by ourself without going to paypal. This is fo checking
                         style={{ marginBottom: "10px" }}
                       >
                         Test Pay Order
-                      </Button>
+                      </Button> */}
                       <div>
                         <PayPalButtons
                           createOrder={createOrder}

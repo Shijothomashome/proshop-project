@@ -417,6 +417,10 @@ implement that into a pagination component.
    and then wrap all the components into HelmetProvider.
    and then create a component called meta.jsx and use it where you want to show the titles, I imported and used it on the product page
 
+--------------------------------------------------------
+
+Now lets deploy watch the Prepare for Production video, then you can run your application in localhost:5000 by running npm run server
+
 
 
 
