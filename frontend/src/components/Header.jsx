@@ -7,6 +7,7 @@ import logo from '../assets/logo.png';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { clearCredentials } from '../slices/authSlice';
 import {useNavigate} from 'react-router-dom'
+import SearchBox from './SearchBox';
 
 const Header = () => {
   // Subscribing to the store
@@ -41,6 +42,7 @@ const Header = () => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ms-auto'>
+              <SearchBox />
               <LinkContainer to='/cart'>
                 <Nav.Link><FaShoppingCart /> Cart
                   {
@@ -64,6 +66,19 @@ const Header = () => {
                 <LinkContainer to='/login'>
                   <Nav.Link><FaUser /> Sign In</Nav.Link>
                 </LinkContainer>
+              )}
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown title='Admin' id='adminmenu'>
+                  <LinkContainer to='/admin/productlist'>
+                    <NavDropdown.Item>Products</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/userlist'>
+                    <NavDropdown.Item>Users</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/orderlist'>
+                    <NavDropdown.Item>Orders</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
               )}
 
             </Nav>

@@ -36,6 +36,7 @@ const LoginScreen = () => {
             const res = await loginAPICall({ email, password }).unwrap(); // loginAPICall will return a promise, so the unwrap function will extract or unwrap the resolved value from the promise
             dispatch(setCredentials({ ...res }));
             navigate(redirect);
+            toast.success('Login successful');
         } catch (err) {
             toast.error(err?.data?.message || err.error);
         }

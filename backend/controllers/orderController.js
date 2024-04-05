@@ -26,6 +26,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
       orderItems: orderItems.map((x) => ({
         ...x,
         product: x._id,
+        _id: undefined, // if you do not put field "_id:undefined" it will automatically generate an _id field with same id as "product:x._id", means it wont generate unique id for ---> product:"" and _id:"" <--- fields
       })),
       shippingAddress,
       paymentMethod,
@@ -50,7 +51,7 @@ const getMyOrders = asyncHandler(async (req, res) => {
 
 // @desc    Get order by ID - orderid
 // @route   GET /api/orders/:id
-// @access  Private/Admin
+// @access  Private
 const getOrderById = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id).populate(
     "user",
@@ -59,7 +60,7 @@ const getOrderById = asyncHandler(async (req, res) => {
   /** populate() is a Mongoose method which is used here is to find the name and email from the User collection.
    * How it is working here, In the Order collection we refered the User collection in the user field with User collection id. so from the
    * user field of Order collection we are fetching the name and email. So inside the populate function the first arg is 'user' field and second arg
-   * is the fields from User collection needs to be fetched!
+   * as the fields from User collection needs to be fetched!
    *
    */
 
@@ -72,24 +73,55 @@ const getOrderById = asyncHandler(async (req, res) => {
 });
 
 // @desc    Update order to paid (isPaid: true from schema)
-// @route   GET /api/orders/:id/pay
+// @route   PUT /api/orders/:id/pay
 // @access  Private
 const updateOrderToPaid = asyncHandler(async (req, res) => {
-  res.send("update order to paid");
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    // these are the remaining fields which are not listed while first creating the order
+    order.isPaid = true;
+    order.paidAt = Date.now();
+    order.paymentResult = {
+      id: req.body.id,
+      status: req.body.status,
+      update_time: req.body.update_time,
+      email_address: req.body.payer.email_address, //from paypal
+    };
+
+    const updatedOrder = await order.save();
+
+    res.status(200).json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error("Order not found");
+  }
 });
 
 // @desc    Update order to delivered (isDelivered: true from schema)
 // @route   PUT /api/orders/:id/deliver
 // @access  Private/Admin
 const updateOrderToDelivered = asyncHandler(async (req, res) => {
-  res.send("update order to delivered");
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+
+    const updatedOrder = await order.save();
+    res.status(200).json(updatedOrder);
+  } else{
+    res.status(404);
+    throw new Error('Order not found')
+  }
 });
 
 // @desc    Get all orders
 // @route   GET /api/orders
 // @access  Private/Admin
 const getOrders = asyncHandler(async (req, res) => {
-  res.send("get all orders");
+  const orders = await Order.find({}).populate("user", "id name");
+  res.status(200).json(orders);
 });
 
 export {

@@ -19,7 +19,7 @@ const cartSlice = createSlice({
           x._id === existItem._id ? item : x
         ); // if exists it just replaces with the same item
       } else {
-        state.cartItems = [...state.cartItems, item]; // Do not use state.cartItems.push(item); which is directly mutating the state variable, its not supportable in REDUX
+        state.cartItems = [...state.cartItems, item]; // Do not use state.cartItems.push(item); which is directly mutating the state variable, its not encouraged in REDUX
       }
 
       return updateCart(state);
@@ -46,7 +46,12 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, clearCart, saveShippingAddress, savePaymentMethod } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  clearCart,
+  saveShippingAddress,
+  savePaymentMethod,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

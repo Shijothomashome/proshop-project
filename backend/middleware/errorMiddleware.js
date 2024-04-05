@@ -15,8 +15,8 @@ const errorHandler = (err, req, res, next) => {
         statusCode = 404;
         message = 'Resource not found';
     }
-
-    res.status(statusCode).json({
+ 
+    res.status(statusCode).json({ // THIS IS NOT TAKEN INSIDE CATCH BLOCK, INSTEAD CHECK IT AS (SERVER RESPOSE VARIABLE).error.data.message eg:- check the UserListScreen.jsx's deleteHandler function
         message, //same as message:message
         stack: process.env.NODE_ENV === 'production' ? '🥞' : err.stack
     })

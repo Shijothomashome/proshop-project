@@ -41,10 +41,11 @@ const RegisterScreen = () => {
         } else {
             try {
                 const res = await registerAPICall({ name, email, password }).unwrap(); // login will return a promise, so the unwrap function will extract or unwrap the resolved value from the promise
+                toast.success('Register success')
                 dispatch(setCredentials({ ...res }));
                 navigate(redirect);
             } catch (err) {
-                toast.error(err?.data?.message || err.error);
+                toast.error(err?.data?.message || err.message);
             }
         }
 
