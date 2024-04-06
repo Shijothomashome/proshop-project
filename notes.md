@@ -23,7 +23,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 });
-
+ 
 -- mutation code in the usersApiSlice.js --
 deleteUser: builder.mutation({
       query: (userId) => ({

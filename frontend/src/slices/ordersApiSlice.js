@@ -8,7 +8,7 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
         url: ORDERS_URL,
         method: "POST",
         body: { ...order },
-      }),
+      }), 
     }),
     getOrderDetails: builder.query({
       query: (orderId) => ({
