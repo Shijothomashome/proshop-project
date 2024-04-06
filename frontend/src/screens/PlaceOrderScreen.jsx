@@ -32,10 +32,10 @@ const PlaceOrderScreen = () => {
         orderItems: cart.cartItems,
         shippingAddress: cart.shippingAddress,
         paymentMethod: cart.paymentMethod,
-        itemsPrice: cart.itemsPrice,
-        taxPrice: cart.taxPrice,
-        shippingPrice: cart.shippingPrice,
-        totalPrice: cart.totalPrice,
+        // itemsPrice: cart.itemsPrice,
+        // taxPrice: cart.taxPrice,
+        // shippingPrice: cart.shippingPrice,
+        // totalPrice: cart.totalPrice,
       }).unwrap(); // unwraps the promise returned from createOrder function
       dispatch(clearCart());
       navigate(`/order/${res._id}`);
@@ -131,7 +131,7 @@ const PlaceOrderScreen = () => {
 
               <ListGroup.Item></ListGroup.Item>
               {error && (
-                <Message variant="danger">{error.data.message}</Message>
+                <Message variant="danger">{error?.data?.message}</Message>
               )}
               <ListGroup.Item>
                 <Button

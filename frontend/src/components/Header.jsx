@@ -8,6 +8,7 @@ import { useLogoutMutation } from '../slices/usersApiSlice';
 import { clearCredentials } from '../slices/authSlice';
 import {useNavigate} from 'react-router-dom'
 import SearchBox from './SearchBox';
+import { clearCartCredentials } from '../slices/cartSlice';
 
 const Header = () => {
   // Subscribing to the store
@@ -23,6 +24,7 @@ const Header = () => {
     try {
       await logoutAPICall().unwrap();
       dispatch(clearCredentials());
+      dispatch(clearCartCredentials());
       navigate('/');
     } catch (err) {
       console.log(err);

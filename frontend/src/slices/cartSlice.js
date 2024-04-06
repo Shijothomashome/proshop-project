@@ -35,6 +35,8 @@ const cartSlice = createSlice({
       state.cartItems = [];
       return updateCart(state);
     },
+    clearCartCredentials: (state) => (state = initialState), // while logout, clearCredentials happen we need to clear the cartItems also, but we cannot directly clear the cart from authSlice so we need to do like this
+    // Also we cannot set clearCartCredentials to null because we always need empty cartItems: [], shippingAddress: {}, paymentMethod: "" so that we  set that to initialState
     saveShippingAddress: (state, action) => {
       state.shippingAddress = action.payload;
       return updateCart(state); // for setting into local storage
@@ -52,6 +54,7 @@ export const {
   clearCart,
   saveShippingAddress,
   savePaymentMethod,
+  clearCartCredentials,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

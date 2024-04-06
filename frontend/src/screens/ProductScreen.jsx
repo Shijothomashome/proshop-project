@@ -37,7 +37,7 @@ const ProductScreen = () => {
     data: product,
     isLoading,
     refetch,
-    isError: error,
+    error,
   } = useGetProductDetailsQuery(productId);
 
   const [createReview, { isLoading: loadingProductReview }] =
@@ -55,7 +55,7 @@ const ProductScreen = () => {
     try {
       const response = await createReview({
         // POST
-        productId,
+        productId, 
         rating,
         comment,
       }).unwrap();
@@ -65,7 +65,7 @@ const ProductScreen = () => {
       setRating("");
       setComment("");
     } catch (err) {
-      toast.error(err?.data?.message || err.message);
+      toast.error(err?.data?.message || err.error);
     }
   };
 
@@ -78,6 +78,7 @@ const ProductScreen = () => {
         <Loader />
       ) : error ? (
         <Message variant="danger">
+          {console.log(error)}
           {error?.data?.message || error.error}
         </Message>
       ) : (

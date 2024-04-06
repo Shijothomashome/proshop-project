@@ -73,7 +73,7 @@ const ProductListScreen = () => {
         error?.data?.message === "Page not found" ? (
           <PageNotFound />
         ) : (
-          <Message variant="danger">{error}</Message>
+          <Message variant="danger">{error?.data?.message}</Message>
         )
       ) : (
         <>
