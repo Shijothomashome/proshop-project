@@ -22,6 +22,7 @@ import {
 import { addToCart } from "../slices/cartSlice.js";
 import { toast } from "react-toastify";
 import Meta from "../components/Meta";
+import { CLOUDINARY_IMG_URL } from "../constants.js";
 
 const ProductScreen = () => {
   const { id: productId } = useParams(); // renaming to productId
@@ -86,7 +87,7 @@ const ProductScreen = () => {
           <Meta title={product.name} />
           <Row>
             <Col md={5}>
-              <Image src={product.image} alt={product.name} fluid />
+              <Image src={`${CLOUDINARY_IMG_URL}/${product.image}`} alt={product.name} fluid />
             </Col>
             <Col md={4}>
               <ListGroup variant="flush">

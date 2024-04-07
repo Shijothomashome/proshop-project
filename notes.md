@@ -424,3 +424,6 @@ Now lets deploy watch the Prepare for Production video, then you can run your ap
 
 
 
+Here the production build file making is to be noted. In the mern auth project brad uses vite and 
+he goes to the frontend folder and runs npm run build, it creates a production build on the frontend inside dist folder and then he goes to root folder and runs npm start.and now if we run npm run start we can see production build file in the localhost:5000, don't forget to make node env to production
+But in the case of this project he creates a build script in the root package.json and runs npm run build in the root folder itself. it creates a production build on the frontend inside the build folder and now if we run npm run start we can see production build file in the localhost:5000. don't forget to make node env to production

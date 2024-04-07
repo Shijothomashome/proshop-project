@@ -13,6 +13,7 @@ import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { addDecimals } from "../utils/cartUtils";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import { CLOUDINARY_IMG_URL } from "../constants";
 
 const OrderScreen = () => {
   const { id: orderId } = useParams(); // renaming into orderId
@@ -172,7 +173,7 @@ const OrderScreen = () => {
                       <Row>
                         <Col md={1}>
                           <Image
-                            src={item.image}
+                            src={`${CLOUDINARY_IMG_URL}/${item.image}`}
                             alt={item.name}
                             fluid
                             rounded

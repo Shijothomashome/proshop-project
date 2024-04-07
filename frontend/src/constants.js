@@ -5,3 +5,5 @@ export const USERS_URL = "/api/users";
 export const ORDERS_URL = "/api/orders";
 export const PAYPAL_URL = "/api/config/paypal";
 export const UPLOADS_URL = "/api/upload";
+export const CLOUDINARY_IMG_URL =
+  "http://res.cloudinary.com/dugtynxi2/image/upload/v1712493642";

@@ -6,6 +6,7 @@ import Message from '../components/Message';
 
 import React from 'react'
 import { addToCart, clearCart, removeFromCart } from '../slices/cartSlice';
+import { CLOUDINARY_IMG_URL } from '../constants';
 
 
 const CartScreen = () => {
@@ -43,7 +44,7 @@ const CartScreen = () => {
                             <ListGroup.Item key={item._id}>
                                 <Row>
                                     <Col md={2}>
-                                        <Image src={item.image} alt={item.name} fluid rounded />
+                                        <Image src={`${CLOUDINARY_IMG_URL}/${item.image}`} alt={item.name} fluid rounded />
                                     </Col>
                                     <Col md={3}>
                                         <Link to={`/product/${item._id}`}>{item.name}</Link>

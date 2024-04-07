@@ -9,6 +9,7 @@ import Loader from "../components/Loader";
 import { useCreateOrderMutation } from "../slices/ordersApiSlice";
 import { clearCart } from "../slices/cartSlice";
 import { addDecimals } from "../utils/cartUtils";
+import { CLOUDINARY_IMG_URL } from "../constants";
 
 const PlaceOrderScreen = () => {
   const navigate = useNavigate();
@@ -75,7 +76,7 @@ const PlaceOrderScreen = () => {
                     <Row>
                       <Col md={1}>
                         <Image
-                          src={item.image}
+                         src={`${CLOUDINARY_IMG_URL}/${item.image}`}
                           alt={item.name}
                           fluid
                           rounded
