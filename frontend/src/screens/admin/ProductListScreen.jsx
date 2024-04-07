@@ -32,6 +32,7 @@ const ProductListScreen = () => {
       try {
         const response = await deleteProduct(id).unwrap();
         refetch();
+      
         toast.success(response?.message);
       } catch (err) {
         toast.error(err?.data?.message || err.message);
@@ -44,6 +45,7 @@ const ProductListScreen = () => {
       try {
         await createProduct().unwrap();
         refetch(); // when new product is created, in the useCreateProductMutation of productsApiSlice the cache with tag name "Products" is invalidated. means it is cleared --> invalidatesTags: ["Products"], and at this point where refetch is called new data is stored inthe Products cache
+        toast.success('Product created successfully');
       } catch (err) {
         toast.error(err?.data?.message || err.error);
       }
