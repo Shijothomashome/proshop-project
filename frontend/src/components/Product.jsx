@@ -8,8 +8,8 @@ const Product = ({ product }) => {
     console.log(product.image)
     return (
         <Card className='my-3 p-3 rounded'>
-            <Link to={`/product/${product._id}`}>
-                <Card.Img src={`${CLOUDINARY_IMG_URL}/${product.image}`} variant='top' />
+            <Link to={`/product/${product._id}`} className="d-flex justify-content-center align-items-center">
+                <Card.Img src={`${CLOUDINARY_IMG_URL}/${product.image}`} variant='top' className='image-fix' />
             </Link>
 
             <Card.Body>
