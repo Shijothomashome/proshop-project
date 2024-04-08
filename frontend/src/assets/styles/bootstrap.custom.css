@@ -37,14 +37,14 @@
   --bs-danger: #e74c3c;
   --bs-light: #f4f4f4;
   --bs-dark: #7b8a8b;
-  --bs-primary-rgb:	0,0,0;
+  --bs-primary-rgb:	52,58,64;
   --bs-secondary-rgb: 0,0,0;
   --bs-success-rgb: 24, 188, 156;
   --bs-info-rgb: 52, 152, 219;
   --bs-warning-rgb: 243, 156, 18;
   --bs-danger-rgb: 231, 76, 60;
   --bs-light-rgb: 244, 244, 244;
-  --bs-dark-rgb: 0,0,0;
+  --bs-dark-rgb: 52,58,64;
   --bs-primary-text: #303d4a;
   --bs-secondary-text: #7b8a8b;
   --bs-success-text: #13967d;
@@ -106,6 +106,7 @@
   --bs-link-decoration: underline;
   --bs-link-hover-color: #303d4a;
   --bs-link-hover-color-rgb: 48, 61, 74;
+  --bs-disabled-color: #989090;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fdebd0;
   --bs-border-width: 1px;
@@ -3896,7 +3897,7 @@ fieldset:disabled .btn {
   --bs-nav-link-font-weight: ;
   --bs-nav-link-color: var(--bs-link-color);
   --bs-nav-link-hover-color: var(--bs-link-hover-color);
-  --bs-nav-link-disabled-color: var(--bs-secondary-color);
+  --bs-nav-link-disabled-color: var(--bs-disabled-color);
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;

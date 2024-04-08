@@ -33,10 +33,10 @@ const HomeScreen = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        error.data && error?.data?.message === "Page not found" ? (
-          <PageNotFound />
+        error.status === 404 ? (
+          <PageNotFound message={error?.data?.message} />
         ) : (
-          <Message variant="danger">{error}</Message>
+          <Message variant="danger">{error?.data?.message}</Message>
         )
       ) : (
         <>

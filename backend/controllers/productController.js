@@ -13,13 +13,15 @@ const getProducts = asyncHandler(async (req, res) => {
     : {};
   const count = await Product.countDocuments({ ...keyword });
   const pages = Math.ceil(count / pageSize);
-  if (page > pages) {
-    res.status(404);
-    throw new Error("Page not found");
-  }
+  
   const products = await Product.find({ ...keyword })
     .limit(pageSize)
     .skip(pageSize * (page - 1));
+ 
+  if (page > pages) {
+    res.status(404);
+    throw new Error("Oops! No results found for your search.");
+  }
 
   res.json({ products, page, pages });
 });
@@ -131,12 +133,11 @@ const createProductReview = asyncHandler(async (req, res) => {
   }
 });
 
-
 // @desc    Get top rated products - for carousel
 // @route   GET /api/products/top
 // @access  Public
 const getTopProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({}).sort({rating: -1}).limit(3); // sorts the documents based on the rating field in descending order (-1), meaning that the documents with the highest rating will appear first in the result.
+  const products = await Product.find({}).sort({ rating: -1 }).limit(3); // sorts the documents based on the rating field in descending order (-1), meaning that the documents with the highest rating will appear first in the result.
   res.status(200).json(products);
 });
 
@@ -147,5 +148,5 @@ export {
   updateProduct,
   deleteProduct,
   createProductReview,
-  getTopProducts
+  getTopProducts,
 };

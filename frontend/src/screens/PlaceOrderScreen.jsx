@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
+import FormContainer from "../components/FormContainer";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { toast } from "react-toastify";
 import Message from "../components/Message";
@@ -47,7 +48,9 @@ const PlaceOrderScreen = () => {
 
   return (
     <>
-      <CheckoutSteps step1 step2 step3 step4 />
+      <FormContainer>
+        <CheckoutSteps step1 step2 step3 step4 />
+      </FormContainer>
       <Row>
         <Col md={8}>
           <ListGroup.Item variant="flush">
@@ -76,7 +79,7 @@ const PlaceOrderScreen = () => {
                     <Row>
                       <Col md={1}>
                         <Image
-                         src={`${CLOUDINARY_IMG_URL}/${item.image}`}
+                          src={`${CLOUDINARY_IMG_URL}/${item.image}`}
                           alt={item.name}
                           fluid
                           rounded
