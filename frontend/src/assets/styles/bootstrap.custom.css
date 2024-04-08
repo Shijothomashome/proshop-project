@@ -6417,6 +6417,58 @@ fieldset:disabled .btn {
   text-align: center;
 }
 
+
+
+
+@media (min-width: 992px) { /* Adjust max-width as per your LG breakpoint */
+  .carousel-description {
+    position: absolute;
+    right: 2%;
+    bottom: 40%;
+    left: 70%;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    color: #fff;
+    text-align: center;
+    font-weight: 500;
+  }
+  .carousel-img{
+    width: 70%;
+  }
+}
+@media (min-width: 1200px) { /* Adjust max-width as per your LG breakpoint */
+  .carousel-description {
+    position: absolute;
+    right: 10%;
+    bottom: 40%;
+    left: 70%;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    color: #fff;
+    text-align: center;
+    font-weight: 500;
+  }
+  .carousel-img{
+    width: auto;
+  }
+}
+@media (min-width: 1400px) { /* Adjust max-width as per your LG breakpoint */
+  .carousel-description {
+    position: absolute;
+    right: 10%;
+    bottom: 40%;
+    left: 60%;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    color: #fff;
+    text-align: center;
+    font-weight: 500;
+  }
+  .carousel-img{
+    width: auto;
+  }
+}
+
 .carousel-dark .carousel-control-prev-icon,
 .carousel-dark .carousel-control-next-icon {
   filter: invert(1) grayscale(100);
