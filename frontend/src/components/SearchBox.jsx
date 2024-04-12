@@ -16,7 +16,7 @@ const SearchBox = () => {
         navigate("/");
     }
   };
-
+ 
   return (
     <Form onSubmit={submitHandler} className='d-flex'>
         <Form.Control
@@ -25,9 +25,9 @@ const SearchBox = () => {
         onChange={(e) => setKeyword(e.target.value)}
         value={keyword}
         placeholder="Search Products..."
-        className="mr-sm-2 ml-sm-5"
+        className="mr-sm-2 ml-sm-5 rounded-0 "
         ></Form.Control>
-        <Button type="submit" variant='outline-light' className="mx-2 p-2">
+        <Button type="submit" variant='outline-success' className="mx-2 p-2 rounded-0 " style={{borderWidth: '2px'}}>
           Search
         </Button>
     </Form>
