@@ -10,7 +10,7 @@ const errorHandler = (err, req, res, next) => {
      
     res.status(statusCode).json({ // THIS IS NOT TAKEN INSIDE CATCH BLOCK, INSTEAD CHECK IT AS (SERVER RESPOSE VARIABLE).error.data.message eg:- check the UserListScreen.jsx's deleteHandler function
         message, //same as message:message
-        stack: process.env.NODE_ENV === 'production' ? err.stack : err.stack
+        stack: process.env.NODE_ENV === 'production' ? err : err.stack
     })
 }
 
