@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 
+
 const SearchBox = () => {
   const navigate = useNavigate();
   const { keyword: urlKeyword } = useParams();
@@ -9,9 +10,8 @@ const SearchBox = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (keyword.trim()){
-        setKeyword('');
-        navigate(`/search/${keyword}`);
+    if (keyword){
+        navigate(`/search/${keyword.trim()}`);  
     }else {
         navigate("/");
     }

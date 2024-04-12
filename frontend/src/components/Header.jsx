@@ -34,12 +34,12 @@ const Header = () => {
     <header>
       <Navbar bg='dark' variant='dark' expand='md' collapseOnSelect>
         <Container>
-          <LinkContainer to='/'>
+          <a href='/' style={{ textDecoration: 'none', color: 'inherit' }}>
             <Navbar.Brand>
               <img src={logo} alt="Proshop logo" />
               ProShop
             </Navbar.Brand>
-          </LinkContainer>
+          </a>
 
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>

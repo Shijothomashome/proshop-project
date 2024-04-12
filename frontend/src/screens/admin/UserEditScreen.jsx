@@ -39,7 +39,7 @@ const UserEditScreen = () => {
     }
   }, [user]);
   const { userInfo } = useSelector((state) => state.auth);
-  console.log(userInfo); 
+ 
 
   //   To get the current logged in user id of the admin for comparing it with its own edit section. if both are same, then the same admin cannot set its admin status to false.
   const { _id: adminId } = userInfo;

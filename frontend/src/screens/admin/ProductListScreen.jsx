@@ -10,15 +10,19 @@ import {
   useDeleteProductMutation,
 } from "../../slices/productsApiSlice";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
 import Paginate from "../../components/Paginate";
 import PageNotFound from "../../components/PageNotFound";
 import { useEffect } from "react";
+import queryString from "query-string";
+import { useLocation } from "react-router-dom";
 
 const ProductListScreen = () => {
-  const { pageNumber } = useParams();
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+
+
   const { data, isLoading, error, refetch } = useGetProductsQuery({
-    pageNumber,
+    page: queryParams.page || 1,
   });
 
   const [createProduct, { isLoading: loadingCreate }] =
@@ -32,7 +36,7 @@ const ProductListScreen = () => {
       try {
         const response = await deleteProduct(id).unwrap();
         refetch();
-      
+
         toast.success(response?.message);
       } catch (err) {
         toast.error(err?.data?.message || err.message);
@@ -45,7 +49,7 @@ const ProductListScreen = () => {
       try {
         await createProduct().unwrap();
         refetch(); // when new product is created, in the useCreateProductMutation of productsApiSlice the cache with tag name "Products" is invalidated. means it is cleared --> invalidatesTags: ["Products"], and at this point where refetch is called new data is stored inthe Products cache
-        toast.success('Product created successfully');
+        toast.success("Product created successfully");
       } catch (err) {
         toast.error(err?.data?.message || err.error);
       }
@@ -115,7 +119,7 @@ const ProductListScreen = () => {
             </tbody>
           </Table>
           <Row className="d-grid justify-content-center ">
-          <Paginate pages={data.pages} page={data.page} isAdmin={true} />
+            <Paginate pages={data.pages} page={data.page} isAdmin={true} />
           </Row>
         </>
       )}

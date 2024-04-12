@@ -1,9 +1,13 @@
-
-
 import { Pagination } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import { useNavigate, useLocation } from "react-router-dom";
+import queryString from "query-string";
+
 
 const Paginate = ({ pages, page, isAdmin = false, keyword = "" }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+
   // Calculate the start and end page numbers for the pagination items
   let startPage, endPage;
   if (pages <= 5) {
@@ -24,50 +28,43 @@ const Paginate = ({ pages, page, isAdmin = false, keyword = "" }) => {
     }
   }
 
+
+  const handleNavigation = (page) => {
+    if (!isAdmin) {
+      // Parse the current query parameters
+      const queryParams = queryString.parse(location.search);
+      
+      // Add or update the 'page' field with the current page number
+      const newParams = { ...queryParams, page: page };
+  
+      // Stringify the updated query parameters
+      const searchString = queryString.stringify(newParams);
+  
+      // Navigate to the updated URL with the modified query parameters
+      navigate(`${location.pathname}?${searchString}`);
+    } else {
+      // Navigate to the admin page
+      navigate(`/admin/productlist?page=${page}`);
+    }
+  };
+
   return (
     pages > 1 && (
       <Pagination>
         {page > 1 && (
-          <LinkContainer
-            to={
-              !isAdmin
-                ? keyword
-                  ? `/search/${keyword}/page/${page - 1}`
-                  : `/page/${page - 1}`
-                : `/admin/productlist/${page - 1}`
-            }
-          >
-            <Pagination.Prev />
-          </LinkContainer>
+          <Pagination.Prev onClick={() => handleNavigation(page - 1)} />
         )}
         {[...Array(endPage + 1 - startPage).keys()].map((x) => (
-          <LinkContainer
+          <Pagination.Item
             key={x + startPage}
-            to={
-              !isAdmin
-                ? keyword
-                  ? `/search/${keyword}/page/${x + startPage}`
-                  : `/page/${x + startPage}`
-                : `/admin/productlist/${x + startPage}`
-            }
+            active={x + startPage === page}
+            onClick={() => handleNavigation(x + startPage)}
           >
-            <Pagination.Item active={x + startPage === page}>
-              {x + startPage}
-            </Pagination.Item>
-          </LinkContainer>
+            {x + startPage}
+          </Pagination.Item>
         ))}
         {page < pages && (
-          <LinkContainer
-            to={
-              !isAdmin
-                ? keyword
-                  ? `/search/${keyword}/page/${page + 1}`
-                  : `/page/${page + 1}`
-                : `/admin/productlist/${page + 1}`
-            }
-          >
-            <Pagination.Next />
-          </LinkContainer>
+          <Pagination.Next onClick={() => handleNavigation(page + 1)} />
         )}
       </Pagination>
     )

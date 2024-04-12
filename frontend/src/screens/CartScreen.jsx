@@ -76,6 +76,7 @@ const CartScreen = () => {
             </Col>
             <Col md={4}>
                 <Card>
+                    <div>
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
                             <h2>
@@ -93,6 +94,7 @@ const CartScreen = () => {
                             </Button>
                         </ListGroup.Item>
                     </ListGroup>
+                    </div>
                 </Card>
             </Col>
         </Row>

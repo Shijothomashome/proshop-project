@@ -83,7 +83,6 @@ const ProductScreen = () => {
         <Loader />
       ) : error ? (
         <Message variant="danger">
-          {console.log(error)}
           {error?.data?.message || error.error}
         </Message>
       ) : (
@@ -126,7 +125,6 @@ const ProductScreen = () => {
                       <Col>
                         {" "}
                         <strong>
-                          {console.log(product.countInStock)}
                           {product.countInStock > 0
                             ? "In Stock"
                             : "Out Of Stock"}

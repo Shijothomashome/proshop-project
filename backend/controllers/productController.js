@@ -5,25 +5,76 @@ import Product from "../models/productModel.js";
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = process.env.PAGINATION_LIMIT; // number of products per page
-  const page = Number(req.query.pageNumber) || 1;
+  const pageSize = Number(process.env.PAGINATION_LIMIT); // number of products per page
 
-  const keyword = req.query.keyword
-    ? { name: { $regex: req.query.keyword, $options: "i" } }
-    : {};
-  const count = await Product.countDocuments({ ...keyword });
-  const pages = Math.ceil(count / pageSize);
+  const { keyword, category, brand, rating } = req.query; // Get the filter parameters from the query string as well as the pageNumber and keyword
+  const page = Number(req.query.page) || 1
   
-  const products = await Product.find({ ...keyword })
-    .limit(pageSize)
-    .skip(pageSize * (page - 1));
- 
-  if (page > pages) {
-    res.status(404);
-    throw new Error("Oops! No results found for your search.");
+  let aggregationPipeline = [];
+
+  // Match stage to filter products based on keyword
+  if (keyword) {
+    //  eg Output: keyword = "phone pro"
+    const searchTerms = keyword.split(" "); // eg Output: searchTerms = [ 'phone', 'pro' ]
+    const regexPatterns = searchTerms.map((term) => new RegExp(term, "i")); // eg Output: regexPatterns = [ /phone/i, /pro/i ]
+    aggregationPipeline.push({
+      $match: { name: { $in: regexPatterns } }, // { $match: { name: { $in: [ /phone/i, /pro/i ] } } }
+    });
   }
 
-  res.json({ products, page, pages });
+  // Match stage to filter products based on category, brand, and rating
+  if (category) {
+    aggregationPipeline.push({
+      $match: { category },
+    });
+  }
+  if (brand) {
+    aggregationPipeline.push({
+      $match: { brand },
+    });
+  }
+  if (rating) {
+    aggregationPipeline.push({
+      $match: { rating: { $gte: Number(rating) } },
+    });
+  }
+
+  // Count documents matching the criteria (for pagination)
+  aggregationPipeline.push({
+    $count: "total",
+  });
+  //=>eg output -- this is an example of how aggregation pipeline looks like
+  //        [
+  //           { $match: { name: { $in: [ /phone/i, /pro/i ] } } }
+  //           { '$match': { category: 'Electronics' } },
+  //           { '$match': { brand: 'Sony' } },
+  //           { '$match': { rating: [Object] } },
+  //           { '$count': 'total' }
+  //        ]
+
+  const countResult = await Product.aggregate(aggregationPipeline);
+  //=> eg output:- assume if there is 13 documents found for the matching filter then => [ { total: 13 } ] or if no documents found for the matching query  => [] empty array
+  // Calculate total number of documents
+  const count = countResult.length > 0 ? countResult[0].total : 0;
+  //Eg:  [ { total: 13 } ]
+  const pages = Math.ceil(count / pageSize); // total number of pages based on number of documents per page
+
+  aggregationPipeline.pop(); // Remove $count stage
+  aggregationPipeline.push({
+    $skip: (page - 1) * pageSize,
+  });
+  aggregationPipeline.push({
+    $limit: pageSize,
+  });
+ 
+ 
+
+
+  const products = await Product.aggregate(aggregationPipeline);
+
+  const categories = await Product.distinct("category");
+  const brands = await Product.distinct("brand");
+  res.json({ products, page, pages, categories, brands, count });
 });
 
 // @desc    Fetch a product
