@@ -32,19 +32,20 @@ app.get("/api/config/paypal", (req, res) => {
 
 const __dirname = path.resolve();
 
-if (process.env.NODE_ENV === "production") {
-  console.log(path.join(__dirname, "/frontend/build"));
-
-  app.use(express.static(path.join(__dirname, "/frontend/build")));
-  // Any route that is not api will be redirected to index.html
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
-  );
-} else {
-  app.get("/", (req, res) => {
-    res.send("API is running....");
+if (process.env.NODE_ENV === 'production') {
+  // Adjust the path to correctly point to the frontend build directory
+  const frontendBuildPath = path.join(__dirname, 'frontend', 'build');
+  app.use(express.static(frontendBuildPath));
+ 
+  // Any route that is not API will be redirected to index.html
+  app.get('*', (req, res) => {
+     res.sendFile(path.join(frontendBuildPath, 'index.html'));
   });
-}
+ } else {
+  app.get('/', (req, res) => {
+     res.send('API is running....');
+  });
+ }
 
 app.use(notFound);
 app.use(errorHandler);
