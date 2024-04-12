@@ -6,7 +6,7 @@ import { CLOUDINARY_IMG_URL } from '../constants'
 
 const Product = ({ product }) => {
     return (
-        <Card className='my-3 p-3 rounded' style={{width: '290px'}}>
+        <Card className='my-3 p-3 rounded shadow-none' style={{width: '290px'}}>
             <Link to={`/product/${product._id}`} className="d-flex justify-content-center align-items-center">
                 <Card.Img src={`${CLOUDINARY_IMG_URL}/${product.image}`} variant='top' className='image-fix' />
             </Link>
