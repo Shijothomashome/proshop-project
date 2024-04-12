@@ -33,7 +33,7 @@ app.get("/api/config/paypal", (req, res) => {
 const __dirname = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
-  console.log(path.join(__dirname, "/frontend/build"));
+  console.log(path.join(__dirname, "frontend/build"));
 
   app.use(express.static(path.join(__dirname, "frontend/build")));
   // Any route that is not api will be redirected to index.html
