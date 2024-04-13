@@ -11,7 +11,7 @@ const Footer = () => {
     toast.success('you are subscribed to our newsletter')
   }
   return (
-    <footer style={{ backgroundColor: "#f8f9fa" }} className="mt-5">
+    <footer  className="mt-5 bg-secondary-subtle ">
       <Container>
         <Row>
           <Col md={4} className="text-center py-3">
@@ -36,7 +36,7 @@ const Footer = () => {
 
             <h5>About ProShop</h5>
             <small>
-              ProShop is your one-stop shop for all your shopping needs. Your one-stop shop for electronics, fashion, home goods, and more. Experience convenience at its best!
+              Your one-stop shop for electronics, fashion, home goods, and more. Experience convenience at its best!
             </small>
             <p className="mt-4">ProShop &copy; {currentYear}</p>
           </Col>
