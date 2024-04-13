@@ -50,7 +50,11 @@ const HomeScreen = () => {
   };
 
   const updateUrlParams = (params) => {
-    const newParams = { ...queryParams, ...params };
+    const newParams = {
+      ...queryParams,
+      ...params,
+      page: queryParams.page ? 1 : queryParams.page,
+    };
     const searchString = queryString.stringify(newParams);
     navigate(`${location.pathname}?${searchString}`);
   };
