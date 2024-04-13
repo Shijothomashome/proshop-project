@@ -1,4 +1,4 @@
-# [Proshop](https://proshop-ecommerce-v2.vercel.app/ ) Ecommerce - MERN 
+# [Proshop](https://proshop-ecommerce-web.vercel.app/ ) Ecommerce - MERN 
 This is an eCommerce shop developed using MERN stack along with Redux Toolkit.
 
 
