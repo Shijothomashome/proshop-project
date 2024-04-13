@@ -27,8 +27,6 @@ const HomeScreen = () => {
     rating: queryParams.rating || "",
   });
 
-  const homePage = !keyword && Object.keys(queryParams).length === 0;
-
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, [data]);
@@ -59,14 +57,21 @@ const HomeScreen = () => {
     navigate(`${location.pathname}?${searchString}`);
   };
 
+  const homePage = !keyword && Object.keys(queryParams).length === 0;
+  const nonFilterPages =
+    (!keyword && Object.keys(queryParams).length === 0) ||
+    (Object.keys(queryParams).length === 1 && queryParams.page !== undefined);
+
   return (
     <>
-      {homePage ? (
+      {homePage || queryParams.page === "1" ? (
         <ProductCarousel />
       ) : (
-        <button onClick={() => navigate("/")} className="btn btn-light mb-4">
-          Go Back
-        </button>
+        !nonFilterPages && (
+          <button onClick={() => navigate("/")} className="btn btn-light mb-4">
+            Go Back
+          </button>
+        )
       )}
 
       {isLoading ? (
@@ -79,7 +84,7 @@ const HomeScreen = () => {
         )
       ) : (
         <>
-          {!homePage ? (
+          {!nonFilterPages ? (
             <Row>
               <h1 className="display-6">
                 Filtered Products ({data.count}{" "}
